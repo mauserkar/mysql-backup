@@ -8,9 +8,9 @@ echo "error creating backup mysql" | mutt -s "error creating backup mysql" -- $M
 /app/send_email_error.sh
 
 echo "####### Mysql config #######"
-echo "Mysql server: $BAK_SERVER"
-echo "Mysql user: $BAK_USER"
-echo "Mysql password: $(echo $BAK_PASS | cut -c -4)****"
+echo "Mysql server: $MYSQL_SERVER"
+echo "Mysql user: $MYSQL_USER"
+echo "Mysql password: $(echo $MYSQL_PASS | cut -c -4)****"
 
 echo "####### email Config #######"
 echo "email from: $MUTT_EMAIL"
