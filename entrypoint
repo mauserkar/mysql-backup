@@ -1,0 +1,23 @@
+#!/bin/bash
+sed -i "s/__CRON_SCHEDULE__/$CRON_SCHEDULE/g" /etc/cron.d/cronfile
+sed -i "s/__mutt_from__/$MUTT_EMAIL/g" /root/.muttrc
+sed -i "s/__mutt_smtp_url__/$MUTT_EMAIL_SMTP/g" /root/.muttrc
+sed -i "s/__mutt_smtp_pass__/$MUTT_EMAIL_PASSWORD/g" /root/.muttrc
+
+echo "error creating backup mysql" | mutt -s "error creating backup mysql" -- $MUTT_EMAIL
+/app/send_email_error.sh
+
+echo "####### Mysql config #######"
+echo "Mysql server: $BAK_SERVER"
+echo "Mysql user: $BAK_USER"
+echo "Mysql password: $(echo $BAK_PASS | cut -c -4)****"
+
+echo "####### email Config #######"
+echo "email from: $MUTT_EMAIL"
+echo "email smtp: $MUTT_EMAIL_SMTP"
+echo "email smpt pasword: $(echo $MUTT_EMAIL_PASSWORD | cut -c -4)****"
+
+echo "####### Cron Config #######"
+echo "cron set: $CRON_SCHEDULE"
+echo ""
+/usr/sbin/crond -f 8
