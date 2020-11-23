@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+echo "$CRON_SCHEDULE sh /app/backup.sh" > /etc/crontabs/root
+
+mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" 
+
+echo "Mysql server: $MYSQL_SERVER"
+echo "Mysql user: $MYSQL_USER"
+echo "Mysql password: $(echo $MYSQL_PASSWORD | cut -c -4)****"
+echo "Mysql retention days: $BAK_RETENTION"
+echo "Cron set: $CRON_SCHEDULE"
+echo ""
+
+crond -f -l 8
