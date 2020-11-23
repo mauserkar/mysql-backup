@@ -1,4 +1,0 @@
-set from = "__mutt_from__"
-set realname = "Backup-databases"
-set smtp_url = "__mutt_smtp_url__"
-set smtp_pass = "__mutt_smtp_pass__"
