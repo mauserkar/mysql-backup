@@ -1,11 +1,13 @@
 #!/bin/bash
+set -ex
+
 sed -i "s/__CRON_SCHEDULE__/$CRON_SCHEDULE/g" /etc/cron.d/cronfile
 sed -i "s/__mutt_from__/$MUTT_EMAIL/g" /root/.muttrc
 sed -i "s/__mutt_smtp_url__/$MUTT_EMAIL_SMTP/g" /root/.muttrc
 sed -i "s/__mutt_smtp_pass__/$MUTT_EMAIL_PASSWORD/g" /root/.muttrc
 
-echo "error creating backup mysql" | mutt -s "error creating backup mysql" -- $MUTT_EMAIL
-/app/send_email_error.sh
+# TODO
+# echo "error creating backup mysql" | mutt -s "error creating backup mysql" -- $MUTT_EMAIL > /app/send_email_error.sh
 
 echo "####### Mysql config #######"
 echo "Mysql server: $MYSQL_SERVER"
