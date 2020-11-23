@@ -8,5 +8,7 @@ RUN chmod +x /app/backup.sh /app/entrypoint
 
 VOLUME [ "/app/backup" ]
 
+WORKDIR /app
+
 CMD ["/app/entrypoint"]
 

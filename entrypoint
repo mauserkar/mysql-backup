@@ -5,6 +5,8 @@ env > /etc/environment
 echo "$CRON_SCHEDULE root sh /app/backup.sh > /proc/1/fd/1 2>/proc/1/fd/2" > /etc/cron.d/cronfile
 echo "" >> /etc/cron.d/cronfile
 
+mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" 
+
 echo "Mysql server: $MYSQL_SERVER"
 echo "Mysql user: $MYSQL_USER"
 echo "Mysql password: $(echo $MYSQL_PASSWORD | cut -c -4)****"
