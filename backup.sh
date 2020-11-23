@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -euo pipefail
 BAK_OUTPUT="/app/backup/"
 BAK_DATE=$(date "+%d%m%Y-%H%M%S")
 
@@ -9,7 +9,7 @@ DATABASES=$(mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASS
 
 for DB in $DATABASES; do
     if [ "$DB" != "performance_schema" ] && [ "$DB" != "information_schema" ] && [ "$DB" != _* ] && [ "$DB" != "mysql" ]; then
-        echo "Dumping database: $DB"
+        echo "Dumping database: $DB at $BAK_DATE"
         mysqldump --force --opt --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD --databases $DB > $BAK_OUTPUT/$DB-$BAK_DATE.sql
         gzip $BAK_OUTPUT/$DB-$BAK_DATE.sql
     fi
