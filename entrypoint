@@ -1,17 +1,24 @@
-#!/bin/bash
-set -e
+#!/bin/sh
 
-env > /etc/environment
-echo "$CRON_SCHEDULE root sh /app/backup.sh > /proc/1/fd/1 2>/proc/1/fd/2" > /etc/cron.d/cronfile
-echo "" >> /etc/cron.d/cronfile
+echo "$CRON_SCHEDULE sh /app/backup.sh" > /etc/crontabs/root
 
-mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" 
+if [ -z "$MYSQL_DATABASES" ]; then
+    MYSQL_DATABASES="All dbs"
+fi
 
 echo "Mysql server: $MYSQL_SERVER"
+echo "Mysql databases: $MYSQL_DATABASES"
 echo "Mysql user: $MYSQL_USER"
-echo "Mysql password: $(echo $MYSQL_PASSWORD | cut -c -4)****"
+echo "Mysql password: $(echo $MYSQL_PASSWORD | cut -c -4)********"
 echo "Mysql retention days: $BAK_RETENTION"
-echo "Cron set: $CRON_SCHEDULE"
+echo "Cron: $CRON_SCHEDULE"
 echo ""
 
-/usr/sbin/cron -f 8
+mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" > /dev/null 2>&1 
+
+if [ "$?" -ne "0" ]; then
+  echo "##### Cannot connect with dbserver #####"
+  exit 1
+fi
+
+crond -f -l 8

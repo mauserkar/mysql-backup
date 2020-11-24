@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/sh
 
 BAK_OUTPUT="/app/backup/"
 BAK_DATE=$(date "+%d%m%Y-%H%M%S")
