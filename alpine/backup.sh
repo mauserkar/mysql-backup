@@ -6,10 +6,8 @@ BAK_DATE=$(date "+%d%m%Y-%H%M%S")
 
 find $BAK_OUTPUT -mindepth 1 -maxdepth 1 -mtime +$BAK_RETENTION -exec rm -rf {} \;
 
-if [ -z "$MYSQL_DATABASES" ]; then
+if [ -z $MYSQL_DATABASES ]; then
     MYSQL_DATABASES=$(mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
-else
-    MYSQL_DATABASES=$(eval echo $$MYSQL_DATABASES)
 fi
 
 for DB in $MYSQL_DATABASES; do
