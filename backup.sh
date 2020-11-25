@@ -12,7 +12,7 @@ fi
 for DB in $(echo $MYSQL_DATABASES | tr -d \' | tr -d \"); do
     if [ "$DB" != "performance_schema" ] && [ "$DB" != "information_schema" ] && [ "$DB" != _* ] && [ "$DB" != "mysql" ]; then
         echo "$BAK_DATE Dumping database: $DB"
-	    mysqldump --force --opt --host=$MYSQL_SERVER--user=$MYSQL_USER --password=$MYSQL_PASSWORD --databases $DB > $BAK_OUTPUT/$DB-$BAK_DATE.sql
+	    mysqldump --force --opt --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD --databases $DB > $BAK_OUTPUT/$DB-$BAK_DATE.sql
 	    gzip $BAK_OUTPUT/$DB-$BAK_DATE.sql
     fi
 done
