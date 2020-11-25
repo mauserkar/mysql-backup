@@ -1,6 +1,7 @@
 #!/bin/sh
 
-echo "$CRON_SCHEDULE sh /app/backup.sh" > /etc/crontabs/root
+CLEAN_CRON=$(echo $CRON_SCHEDULE | tr -d \' | tr -d \")
+echo "$CLEAN_CRON sh /app/backup.sh" > /etc/crontabs/root
 
 if [ -z "$MYSQL_DATABASES" ]; then
     MYSQL_DATABASES="All dbs"
