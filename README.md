@@ -2,7 +2,7 @@
 
 ## Build: 
 ```
-docker build -t carlosgaro/mysql-backup:1.3 .
+docker build -t carlosgaro/mysql-backup:1.5 .
 ```
 ## Run 
 ```
@@ -15,5 +15,5 @@ docker run -d --restart always \
     -e MYSQL_USER=< mysql-user > \
     -e MYSQL_PASSWORD=< mysql-password > \
     -e CRON_SCHEDULE= < cron format (http://cron.guru) > \
-    carlosgaro/mysql-backup:1.3
+    carlosgaro/mysql-backup:1.5
 ```

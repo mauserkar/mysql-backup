@@ -17,4 +17,9 @@ echo ""
 
 mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;"
 
+if [ ! -f /app/backup/init.backup.lock ]; then
+    sh /app/backup.sh
+    touch /app/backup/init.backup.lock
+fi
+
 crond -f -l 8
