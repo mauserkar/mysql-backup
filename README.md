@@ -2,7 +2,7 @@
 
 ## Build: 
 ```
-docker build -t mysql-backup .
+docker build -t carlosgaro/mysql-backup:1.0 .
 ```
 ## Run 
 ```
