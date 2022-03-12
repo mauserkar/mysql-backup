@@ -23,5 +23,5 @@ if [ ! -f /app/backup/init.backup.lock ]; then
     touch /app/backup/init.backup.lock
 fi
 
-echo "Set crontab and waiting for next execution, $CRON_SCHEDULE..."
+echo "Set crontab and waiting for next execution, cron: $CRON_SCHEDULE..."
 crond -f -l 8
