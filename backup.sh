@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BAK_OUTPUT="/app/backup"
-BAK_DATE=$(date "+%d%m%Y-%H%M%S")
+BAK_DATE=$(date "+%Y%m%d-%H%M%S")
 
 find $BAK_OUTPUT -mindepth 1 -maxdepth 1 -mtime +$BAK_RETENTION -exec rm -rf {} \;
 
