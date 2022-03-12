@@ -14,12 +14,14 @@ echo "Mysql password: $(echo $MYSQL_PASSWORD | cut -c -4)********"
 echo "Mysql retention days: $BAK_RETENTION"
 echo "Cron: $CRON_SCHEDULE"
 echo ""
-
+echo "Connecting to mysql and showing databases..."
 mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;"
 
 if [ ! -f /app/backup/init.backup.lock ]; then
     sh /app/backup.sh
+    echo "First backup when startup..."
     touch /app/backup/init.backup.lock
 fi
 
+echo "Set crontab and waiting for next execution, $CRON_SCHEDULE..."
 crond -f -l 8
