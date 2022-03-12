@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 echo "$(echo "$CRON_SCHEDULE" | tr -d \' | tr -d \") sh /app/backup.sh" > /etc/crontabs/root
 
@@ -15,10 +16,5 @@ echo "Cron: $CRON_SCHEDULE"
 echo ""
 
 mysql --host=$MYSQL_SERVER --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "SHOW DATABASES;" > /dev/null 2>&1 
-
-if [ "$?" -ne "0" ]; then
-  echo "##### Cannot connect with dbserver #####"
-  exit 1
-fi
 
 crond -f -l 8
