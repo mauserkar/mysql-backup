@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 
 echo "$(echo "$CRON_SCHEDULE" | tr -d \' | tr -d \") sh /app/backup.sh" > /etc/crontabs/root
 
